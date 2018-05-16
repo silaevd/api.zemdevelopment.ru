@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Project;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Class ManagerController
@@ -12,6 +12,11 @@ use Symfony\Component\HttpFoundation\JsonResponse;
  */
 class ManagerController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * @return Factory|\Illuminate\View\View
      */
@@ -20,17 +25,19 @@ class ManagerController extends Controller
         return view('manager.index');
     }
 
-    public function form()
+    public function project()
     {
-        return view('manager.form');
+        return view('manager.project');
     }
 
     /**
      * @param Request $request
-     * @return JsonResponse
+     * @param Project $project
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function process(Request $request)
+    public function process(Request $request, Project $project)
     {
-        return JsonResponse::create($request);
+        $project->store($request);
+        return redirect('/manager');
     }
 }
