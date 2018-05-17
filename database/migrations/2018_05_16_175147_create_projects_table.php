@@ -22,8 +22,8 @@ class CreateProjectsTable extends Migration
             $table->string('price')->default('');
             $table->string('deadline')->default('');
             $table->string('videoLink')->nullable();
-            $table->string('cover')->default('');
-            $table->string('images')->default('');
+            $table->string('cover')->nullable()->default('');
+            $table->string('images')->nullable()->default('');
             $table->boolean('isPopular')->default(false);
             $table->boolean('isActive')->default(false);
             $table->timestamps();

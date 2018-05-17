@@ -2,8 +2,10 @@
 
 namespace App;
 
+use FileUploader\Services\FileUploaderService;
 use Illuminate\Database\Eloquent\Model;
-use Symfony\Component\HttpFoundation\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
 
 /**
  * @property \Carbon\Carbon $created_at
@@ -12,9 +14,17 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class Project extends Model
 {
+    /**
+     * @var array
+     */
     protected $guarded = [];
 
-    public function store(Request $request)
+    /**
+     * @param Request $request
+     *
+     * @return bool
+     */
+    public function store(Request $request): bool
     {
         $title = $request->request->get('title');
         $slug = $request->request->get('slug');
@@ -23,23 +33,75 @@ class Project extends Model
         $price = $request->request->get('price');
         $deadline = $request->request->get('deadline');
         $videoLink = $request->request->get('videoLink');
-        $cover = $request->request->get('cover', '');
-        $images = $request->request->get('images', []);
         $isPopular = $request->request->getBoolean('isPopular');
         $isActive = $request->request->getBoolean('isActive');
 
-        return self::create([
-            'title' => $title,
-            'slug' => $slug,
-            'area' => $area,
-            'size' => $size,
-            'price' => $price,
-            'deadline' => $deadline,
-            'videoLink' => !empty($videoLink) ? \implode('|', $videoLink) : '',
-            'cover' => $cover,
-            'images' => !empty($images) ? \implode('|', $images) : '',
-            'isPopular' => $isPopular,
-            'isActive' => $isActive,
-        ]);
+        $newEntry = new self();
+        $newEntry->title     = $title;
+        $newEntry->slug      = $slug;
+        $newEntry->area      = $area;
+        $newEntry->size      = $size;
+        $newEntry->price     = $price;
+        $newEntry->deadline  = $deadline;
+        $newEntry->cover     = null;
+        $newEntry->videoLink = $videoLink ? \implode(',', $videoLink) : null;
+        $newEntry->images    = null;
+        $newEntry->isPopular = $isPopular;
+        $newEntry->isActive  = $isActive;
+
+        $newEntry->save();
+
+        $cover = $this->coverUpload($newEntry->id, $request);
+        if ($cover) {
+            $newEntry->cover = $cover;
+        }
+        $images = $this->addImagesWithFileUploader($newEntry->id, $request);
+        if ($images) {
+            $newEntry->images = \implode(',', $images);
+        }
+
+        return $newEntry->save();
+    }
+
+    /**
+     * @param int     $projectId
+     * @param Request $request
+     *
+     * @return string|null
+     */
+    private function coverUpload(int $projectId, Request $request): ?string
+    {
+        if (empty($request->file('cover'))) {
+            return null;
+        }
+        Storage::makeDirectory('projects/' . $projectId . '/cover');
+        $path = $request->file('cover')->store('projects/' . $projectId . '/cover');
+        return $path;
+    }
+
+    /**
+     * @param int     $projectId
+     * @param Request $request
+     *
+     * @return array|null
+     */
+    public function addImagesWithFileUploader(int $projectId, Request $request): ?array
+    {
+        if ($request->request->get('fileuploader-list-images')) {
+            return null;
+        }
+
+        $uploader = new FileUploaderService('images', ['uploadDir' => storage_path('projects/' . $projectId . '/images') . DIRECTORY_SEPARATOR, 'editor' => [
+            'maxWidth'  => 1024,
+            'maxHeight' => 1024,
+            'quality'   => 75,
+        ]]);
+        $res = [];
+        $uploader->upload();
+        $files = $uploader->getFileList();
+        foreach ($files as $key => $file) {
+            $res[] = $file['name'];
+        }
+        return $res;
     }
 }
