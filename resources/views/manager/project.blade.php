@@ -1,11 +1,15 @@
 @extends('layouts.manager')
 
 @section('content')
+
     <div class="col s12 tabContent">
 
         <div class="sectionTitle blue">
-            <h2 class="">Новый проект</h2>
-            <h2 class="">Название проекта</h2>
+            @if (!empty($project) && $project['id'])
+                <h2 class="">{{$project['title']}}</h2>
+            @else
+                <h2 class="">Новый проект</h2>
+            @endif
         </div>
 
         <div class="addProjectForm">
@@ -14,42 +18,42 @@
                     <div class="row">
                         <div class="input-field col s12">
                             <i class="material-icons prefix">subtitles</i>
-                            <input id="title" type="text" class="validate" name="title" value="" required>
+                            <input id="title" type="text" class="validate" name="title" value="{{ !empty($project) ? $project['title'] : '' }}" required>
                             <label for="title">Название проекта</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
                             <i class="material-icons prefix">insert_link</i>
-                            <input id="slug" type="text" class="validate" name="slug" value="" required>
+                            <input id="slug" type="text" class="validate" name="slug" value="{{ !empty($project) ? $project['slug'] : '' }}" required>
                             <label for="slug">Slug (ссылка)</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
                             <i class="material-icons prefix">crop_landscape</i>
-                            <input id="area" type="text" class="validate" name="area" value="" required>
+                            <input id="area" type="text" class="validate" name="area" value="{{ !empty($project) ? $project['area'] : '' }}" required>
                             <label for="area">Площадь проекта</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
                             <i class="material-icons prefix">picture_in_picture_alt</i>
-                            <input id="size" type="text" class="validate" name="size" value="" required>
+                            <input id="size" type="text" class="validate" name="size" value="{{ !empty($project) ? $project['size'] : '' }}" required>
                             <label for="size">Размеры проекта</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
                             <i class="material-icons prefix">attach_money</i>
-                            <input id="price" type="text" class="validate" name="price" value="" required>
+                            <input id="price" type="text" class="validate" name="price" value="{{ !empty($project) ? $project['price'] : '' }}" required>
                             <label for="price">Цена проекта</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
                             <i class="material-icons prefix">update</i>
-                            <input id="deadline" type="text" class="validate" name="deadline" value="" required>
+                            <input id="deadline" type="text" class="validate" name="deadline" value="{{ !empty($project) ? $project['deadline'] : '' }}" required>
                             <label for="deadline">Срок готовности</label>
                         </div>
                     </div>
@@ -80,7 +84,26 @@
                     <div class="row">
                         <span class="col s12">Фото:</span>
                         <div class="col s12">
-                            <input id="fotoInput" type="file" name="images[]" multiple>
+                            @if(!empty($project['images']))
+                                @php
+                                    $keys = array_keys($project['images']);
+                                @endphp
+                                <input id="fotoInput" type="file" name="images[]"  {{ !empty($errors->has('images')) ? 'required' : null }}
+                                    data-fileuploader-files=
+                                    '[
+                                        @foreach(explode(',', $project['images']) as $key => $image)
+                                            {
+                                                "name":"{{$image}}",
+                                                "size":1024,
+                                                "type":"image\/jpeg",
+                                                "file":"{{ url($image) }}"
+                                            } {{ end($keys) !== $key ? ',' : '' }}
+                                        @endforeach
+                                    ]'
+                                >
+                            @else
+                                <input id="fotoInput" type="file" name="images[]" multiple {{ !empty($errors->has('images')) ? 'required' : null }}>
+                            @endif
                         </div>
                     </div>
                     <div class="row">

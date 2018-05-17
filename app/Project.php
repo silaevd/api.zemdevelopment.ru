@@ -28,6 +28,15 @@ class Project extends Model
     }
 
     /**
+     * @param int $id
+     * @return mixed
+     */
+    public function getById(int $id)
+    {
+        return self::findOrFail($id)->toArray();
+    }
+
+    /**
      * @param Request $request
      *
      * @return bool
@@ -82,8 +91,11 @@ class Project extends Model
         if (empty($request->file('cover'))) {
             return null;
         }
-        $path = $request->file('cover')->store('public/projects/' . $projectId . '/cover');
-        return $path;
+        $file = $request->file('cover');
+        $path = \public_path('project/'. $projectId . '/cover');
+        $newImageName = \md5(\time() . mt_rand(1,10000000)) . '.' . \strtolower($file->getClientOriginalExtension());
+        $file->move($path, $path . '/' .$newImageName);
+        return 'project/'. $projectId . '/cover/' .$newImageName;
     }
 
     /**
@@ -98,7 +110,7 @@ class Project extends Model
             return null;
         }
 
-        $uploader = new FileUploaderService('images', ['uploadDir' => storage_path('public/projects/' . $projectId . '/images') . DIRECTORY_SEPARATOR, 'editor' => [
+        $uploader = new FileUploaderService('images', ['uploadDir' => \public_path('project/' . $projectId . '/images') . DIRECTORY_SEPARATOR, 'editor' => [
             'maxWidth'  => 1024,
             'maxHeight' => 1024,
             'quality'   => 75,

@@ -13,4 +13,7 @@ Route::get('/', 'DefaultController@index');
 
 Route::get('/manager', 'ManagerController@index')->name('managerIndex');
 Route::get('/manager/project', 'ManagerController@project')->name('managerProject');
+Route::get('/manager/project/{id}/edit', 'ManagerController@edit')->where('id', '[0-9]+')->name('managerProjectEdit');
+Route::get('/manager/project/{id}/disable', 'ManagerController@disable')->where('id', '[0-9]+')->name('managerProjectDisable');
+Route::get('/manager/project', 'ManagerController@project')->name('managerProject');
 Route::post('/manager/process', 'ManagerController@process')->name('managerProcess');

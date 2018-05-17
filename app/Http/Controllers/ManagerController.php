@@ -37,6 +37,17 @@ class ManagerController extends Controller
     }
 
     /**
+     * @param Project $project
+     * @param int $id
+     * @return Factory|\Illuminate\View\View
+     */
+    public function edit(Project $project, int $id)
+    {
+        $project = $project->getById($id);
+        return view('manager.project', ['project' => $project]);
+    }
+
+    /**
      * @param Request $request
      * @param Project $project
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
