@@ -11,20 +11,24 @@
             <a href="{{ url('/manager/project') }}" class="waves-effect waves-light btn green hoverable"><i class="material-icons right">add</i>Добавить</a>
         </div>
         <div class="projects">
+            @if($projectList)
+            @foreach($projectList as $project)
             <div class="row">
                 <div class="col s12 m6 l3">
                     <div class="card">
                         <div class="card-image">
-                            <img src="../assets/images/projects/esthetic.jpg">
-                            <a href="{{ url('/manager/project') }}" class="btn-floating halfway-fab waves-effect waves-light orange hoverable firstBtn"><i class="material-icons">edit</i></a>
-                            <a class="btn-floating halfway-fab waves-effect waves-light red hoverable"><i class="material-icons">delete</i></a>
+                            <img src="{{ storage_path($project['cover']) }}">
+                            <a href="{{ url('/manager/project/' . $project['id']) . '/edit' }}" class="btn-floating halfway-fab waves-effect waves-light orange hoverable firstBtn"><i class="material-icons">edit</i></a>
+                            <a class="btn-floating halfway-fab waves-effect waves-light red hoverable" href="{{ url('/manager/project/' . $project['id']) . '/delete' }}""><i class="material-icons">delete</i></a>
                         </div>
                         <div class="card-content">
-                            <span class="card-title">Card Title</span>
+                            <span class="card-title">{{ $project['title'] }}</span>
                         </div>
                     </div>
                 </div>
             </div>
+            @endforeach
+            @endif
         </div>
     </div>
 

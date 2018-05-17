@@ -20,6 +20,14 @@ class Project extends Model
     protected $guarded = [];
 
     /**
+     * @return array
+     */
+    public function getList(): array
+    {
+        return $this->get()->toArray();
+    }
+
+    /**
      * @param Request $request
      *
      * @return bool
@@ -74,8 +82,7 @@ class Project extends Model
         if (empty($request->file('cover'))) {
             return null;
         }
-        Storage::makeDirectory('projects/' . $projectId . '/cover');
-        $path = $request->file('cover')->store('projects/' . $projectId . '/cover');
+        $path = $request->file('cover')->store('public/projects/' . $projectId . '/cover');
         return $path;
     }
 
@@ -91,7 +98,7 @@ class Project extends Model
             return null;
         }
 
-        $uploader = new FileUploaderService('images', ['uploadDir' => storage_path('projects/' . $projectId . '/images') . DIRECTORY_SEPARATOR, 'editor' => [
+        $uploader = new FileUploaderService('images', ['uploadDir' => storage_path('public/projects/' . $projectId . '/images') . DIRECTORY_SEPARATOR, 'editor' => [
             'maxWidth'  => 1024,
             'maxHeight' => 1024,
             'quality'   => 75,

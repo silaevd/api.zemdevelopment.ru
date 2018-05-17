@@ -18,13 +18,19 @@ class ManagerController extends Controller
     }
 
     /**
+     * @param Project $project
+     *
      * @return Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(Project $project)
     {
-        return view('manager.index');
+        $projectList = $project->getList();
+        return view('manager.index', ['projectList' => $projectList]);
     }
 
+    /**
+     * @return Factory|\Illuminate\View\View
+     */
     public function project()
     {
         return view('manager.project');
