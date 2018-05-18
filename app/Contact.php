@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
  */
 class Contact extends Model
 {
+    const CONTACT_ID = 1;
+
     /**
      * @param Request $request
      *
@@ -18,7 +20,7 @@ class Contact extends Model
      */
     public function store(Request $request): bool
     {
-        $contacts = self::find(1);
+        $contacts = self::find(self::CONTACT_ID);
         if (empty($address)) {
             $contacts = new self();
         }
@@ -27,5 +29,14 @@ class Contact extends Model
         $contacts->phone = $request->request->get('phone');
 
         return $contacts->save();
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getContacts(): ?array
+    {
+        $contacts = self::find(self::CONTACT_ID);
+        return $contacts->toArray();
     }
 }
