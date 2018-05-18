@@ -8,6 +8,6 @@ class DefaultController extends Controller
 {
     public function index()
     {
-        return new JsonResponse(['ok']);
+        return new JsonResponse(['angular is coming']);
     }
 }
