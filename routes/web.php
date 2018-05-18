@@ -18,3 +18,4 @@ Route::get('/manager/project/{id}/disable', 'ManagerController@disable')->where(
 Route::get('/manager/project/{id}/remove_image/{image}', 'ManagerController@removeImage')->where('id', '[0-9]+')->where('image', '.*')->name('managerProjectRemoveImage');
 Route::get('/manager/project', 'ManagerController@project')->name('managerProject');
 Route::post('/manager/process', 'ManagerController@process')->name('managerProcess');
+Route::post('/manager/contact/save', 'ContactController@save')->name('contactSave');

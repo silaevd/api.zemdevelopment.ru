@@ -13,6 +13,14 @@ use Illuminate\Http\Request;
 class ContactController extends Controller
 {
     /**
+     * ContactController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * @param Request $request
      * @param Contact $contact
      *
