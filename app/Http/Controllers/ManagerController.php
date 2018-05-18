@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Project;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 /**
@@ -56,5 +57,18 @@ class ManagerController extends Controller
     {
         $project->store($request);
         return redirect('/manager');
+    }
+
+    /**
+     * @param Project $project
+     * @param int     $id
+     * @param string  $image
+     *
+     * @return JsonResponse
+     * @throws \Exception
+     */
+    public function removeImage(Project $project, int $id, string $image)
+    {
+        return new JsonResponse(['isDeleted' => $project->removeImage($id, $image)]);
     }
 }

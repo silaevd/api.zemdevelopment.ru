@@ -52,8 +52,13 @@ class Project extends Model
         $videoLink = $request->request->get('videoLink');
         $isPopular = $request->request->getBoolean('isPopular');
         $isActive = $request->request->getBoolean('isActive');
+        $projectId = $request->request->getInt('id');
 
-        $newEntry = new self();
+        if ($projectId) {
+            $newEntry = self::findOrFail($projectId);
+        } else {
+            $newEntry = new self();
+        }
         $newEntry->title     = $title;
         $newEntry->slug      = $slug;
         $newEntry->area      = $area;
@@ -127,5 +132,32 @@ class Project extends Model
             $res[] = $file['file'];
         }
         return $res;
+    }
+
+    /**
+     * @param int    $id
+     * @param string $image
+     *
+     * @return bool
+     * @throws \Exception
+     */
+    public function removeImage(int $id, string $image): bool
+    {
+        $project = self::findOrFail($id);
+        if (empty($project)) {
+            throw new \Exception('project not found');
+        }
+        if (empty($project['images'])) {
+            throw new \Exception('nothing to remove');
+        }
+        $images = \explode(',', $project->images);
+        foreach ($images as $key => $imageDb) {
+            if ($image === $imageDb) {
+                unset($images[$key]);
+                File::delete(\public_path($image));
+            }
+        }
+        $project->images = \implode(',', $images);
+        return $project->save();
     }
 }

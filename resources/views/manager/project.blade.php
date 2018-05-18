@@ -86,18 +86,19 @@
                         <div class="col s12">
                             @if(!empty($project['images']))
                                 @php
-                                    $keys = array_keys($project['images']);
+                                    $keys = array_keys(explode(',', $project['images']));
                                 @endphp
                                 <input id="fotoInput" type="file" name="images[]"  {{ !empty($errors->has('images')) ? 'required' : null }}
                                     data-fileuploader-files=
                                     '[
                                         @foreach(explode(',', $project['images']) as $key => $image)
                                             {
-                                                "name":"{{$image}}",
+                                                "name":"{{ $image }}",
                                                 "size":1024,
                                                 "type":"image\/jpeg",
                                                 "file":"{{ url($image) }}"
                                             } {{ end($keys) !== $key ? ',' : '' }}
+                                    {{--{{ url('manager/project/' . $project['id'] . '/remove_image/' . $image) }}--}}
                                         @endforeach
                                     ]'
                                 >
@@ -112,7 +113,7 @@
                             <div class="switch">
                                 <label>
                                     Off
-                                    <input type="checkbox" name="isPopular">
+                                    <input type="checkbox" name="isPopular" {{ $errors->has('isPopular') ? 'checked' : '' }}>
                                     <span class="lever"></span>
                                     On
                                 </label>
@@ -125,7 +126,7 @@
                             <div class="switch">
                                 <label>
                                     Off
-                                    <input type="checkbox" name="isActive">
+                                    <input type="checkbox" name="isActive" {{ $errors->has('isActive') ? 'checked' : '' }}>
                                     <span class="lever"></span>
                                     On
                                 </label>
@@ -134,6 +135,9 @@
                     </div>
                     <div class="row center">
                         @csrf
+                        @if(!empty($project) && $project['id'])
+                            <input type="hidden" name="id" value="{{ $project['id'] }}">
+                        @endif
                         <button class="btn waves-effect waves-light blue" type="submit" name="action">Отправить
                             <i class="material-icons right">send</i>
                         </button>
