@@ -89,24 +89,6 @@ class Project extends Model
      * @param int     $projectId
      * @param Request $request
      *
-     * @return string|null
-     */
-    private function coverUpload(int $projectId, Request $request): ?string
-    {
-        if (empty($request->file('cover'))) {
-            return null;
-        }
-        $file = $request->file('cover');
-        $path = \public_path('project/'. $projectId . '/cover');
-        $newImageName = \md5(\time() . mt_rand(1,10000000)) . '.' . \strtolower($file->getClientOriginalExtension());
-        $file->move($path, $path . '/' .$newImageName);
-        return 'project/'. $projectId . '/cover/' .$newImageName;
-    }
-
-    /**
-     * @param int     $projectId
-     * @param Request $request
-     *
      * @return array|null
      */
     public function addImagesWithFileUploader(int $projectId, Request $request): ?array
@@ -159,5 +141,35 @@ class Project extends Model
         }
         $project->images = \implode(',', $images);
         return $project->save();
+    }
+
+    /**
+     * @param int $id
+     *
+     * @return bool
+     */
+    public function disableProject(int $id)
+    {
+        $project = self::findOrFail($id);
+        $project->isActive = false;
+        return $project->save();
+    }
+
+    /**
+     * @param int     $projectId
+     * @param Request $request
+     *
+     * @return string|null
+     */
+    private function coverUpload(int $projectId, Request $request): ?string
+    {
+        if (empty($request->file('cover'))) {
+            return null;
+        }
+        $file = $request->file('cover');
+        $path = \public_path('project/'. $projectId . '/cover');
+        $newImageName = \md5(\time() . mt_rand(1,10000000)) . '.' . \strtolower($file->getClientOriginalExtension());
+        $file->move($path, $path . '/' .$newImageName);
+        return 'project/'. $projectId . '/cover/' .$newImageName;
     }
 }

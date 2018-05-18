@@ -62,6 +62,18 @@ class ManagerController extends Controller
     /**
      * @param Project $project
      * @param int     $id
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function disable(Project $project, int $id)
+    {
+        $project->disableProject($id);
+        return redirect('/manager');
+    }
+
+    /**
+     * @param Project $project
+     * @param int     $id
      * @param string  $image
      *
      * @return JsonResponse
