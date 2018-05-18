@@ -4,7 +4,7 @@ namespace App;
 
 use FileUploader\Services\FileUploaderService;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 
 /**
@@ -106,11 +106,16 @@ class Project extends Model
      */
     public function addImagesWithFileUploader(int $projectId, Request $request): ?array
     {
-        if ($request->request->get('fileuploader-list-images')) {
+        if ($request->request->get('images')) {
             return null;
         }
 
-        $uploader = new FileUploaderService('images', ['uploadDir' => \public_path('project/' . $projectId . '/images') . DIRECTORY_SEPARATOR, 'editor' => [
+        $imgPath = \public_path('project/' . $projectId . '/images');
+        if (!File::exists($imgPath)) {
+            File::makeDirectory($imgPath, 0777, true);
+        }
+
+        $uploader = new FileUploaderService('images', ['uploadDir' => $imgPath . DIRECTORY_SEPARATOR, 'editor' => [
             'maxWidth'  => 1024,
             'maxHeight' => 1024,
             'quality'   => 75,
@@ -119,7 +124,7 @@ class Project extends Model
         $uploader->upload();
         $files = $uploader->getFileList();
         foreach ($files as $key => $file) {
-            $res[] = $file['name'];
+            $res[] = $file['file'];
         }
         return $res;
     }
