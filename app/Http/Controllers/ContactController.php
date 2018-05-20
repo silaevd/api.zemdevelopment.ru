@@ -28,8 +28,7 @@ class ContactController extends Controller
      */
     public function save(Request $request, Contact $contact)
     {
-        return new JsonResponse([
-            'isSaved' => $contact->store($request),
-        ]);
+        $contact->store($request);
+        return redirect('manager');
     }
 }

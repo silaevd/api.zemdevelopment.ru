@@ -88,6 +88,7 @@
                             <div class="projectCover col s12">
                                 <img class="responsive-img" src="{{ url($project['cover']) }}">
                                 <a class="btn-floating halfway-fab waves-effect waves-light red hoverable projectCoverRemove" href=""><i class="material-icons">delete</i></a>
+                                <input name="cover" value="{{ $project['cover'] }}">
                             </div>
                         @else
                             <div class="file-field input-field col s12">

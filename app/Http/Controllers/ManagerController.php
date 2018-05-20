@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Contact;
 use App\Project;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
@@ -23,10 +24,12 @@ class ManagerController extends Controller
      *
      * @return Factory|\Illuminate\View\View
      */
-    public function index(Project $project)
+    public function index(Project $project, Contact $contact)
     {
         $projectList = $project->getList();
-        return view('manager.index', ['projectList' => $projectList]);
+        $contacts = $contact->getContacts();
+
+        return view('manager.index', ['projectList' => $projectList, 'contacts' => $contacts]);
     }
 
     /**

@@ -70,31 +70,33 @@
     </div>
 
     <div id="contactsTab" class="col s12 tabContent">
+        {{var_dump($contacts)}}
         <div class="contactsForm">
             <div class="row">
                 <form method="post" action="{{ url('manager/contact/save') }}" enctype="multipart/form-data" class="">
                     <div class="row">
                         <div class="input-field col s12">
                             <i class="material-icons prefix">location_on</i>
-                            <input id="address" name="address" type="text" class="validate" value="{{$contacts['address']}}">
+                            <input id="address" name="address" type="text" class="validate" value="{{!empty($contacts) ? $contacts['address'] : ''}}">
                             <label for="address">Адрес</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
                             <i class="material-icons prefix">email</i>
-                            <input id="email" name="email" type="text" class="validate" value="{{$contacts['email']}}">
+                            <input id="email" name="email" type="text" class="validate" value="{{!empty($contacts) ? $contacts['email'] : ''}}">
                             <label for="email">E-mail</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
                             <i class="material-icons prefix">phone</i>
-                            <input id="phone" name="phone" type="text" class="validate" value="{{$contacts['phone']}}">
+                            <input id="phone" name="phone" type="text" class="validate" value="{{!empty($contacts) ? $contacts['phone'] : ''}}">
                             <label for="phone">Телефон</label>
                         </div>
                     </div>
                     <div class="row center">
+                        @csrf
                         <button class="btn waves-effect waves-light blue" type="submit" name="action">Отправить
                             <i class="material-icons right">send</i>
                         </button>
