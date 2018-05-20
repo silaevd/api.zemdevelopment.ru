@@ -23,7 +23,7 @@ class CreateProjectsTable extends Migration
             $table->string('deadline')->default('');
             $table->string('videoLink')->nullable();
             $table->string('cover')->nullable()->default('');
-            $table->string('images')->nullable()->default('');
+            $table->text('images')->nullable();
             $table->boolean('isPopular')->default(false);
             $table->boolean('isActive')->default(false);
             $table->timestamps();

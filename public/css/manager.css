@@ -57,13 +57,29 @@ form {
 #addVideoLink {
   margin-top: 10px;
 }
+.projectCover {
+    position: relative;
+    margin-top: 15px;
+}
+.btn-floating.halfway-fab.projectCoverRemove {
+    bottom: -16px;
+}
 .sectionTitle {
     display: inline-block;
-  /*width: 85%;*/
-  margin: 15px 0 30px -30px;
-  padding: 0 10px 7px;
+    /*width: 85%;*/
+    margin: 15px 0 30px -30px;
+    padding: 0 10px 7px;
 }
 .sectionTitle h2{
   color: white;
   margin: 0;
+}
+.collapsible-header {
+    outline: none;
+}
+.activeProjects {
+    color: #4caf50;
+}
+.disabledProjects {
+    color: #ef5350;
 }

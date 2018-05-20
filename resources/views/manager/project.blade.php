@@ -58,28 +58,48 @@
                         </div>
                     </div>
                     <div id="videoRow" class="row">
-                        <span class="col s12">Видео:</span>
-                        <div class="col s12">
-                            <a id="addVideoLink" class="btn-floating waves-effect waves-light btn-small"><i class="material-icons right">add</i></a>
-                        </div>
                         <div class="hide">
                             <div id="videoInputField" class="input-field col s12">
                                 <i class="material-icons prefix">insert_link</i>
                                 <input type="text" class="validate" placeholder="ссылка на видео" name="videoLink[]" value="">
                             </div>
                         </div>
+
+                        <span class="col s12">Видео:</span>
+                        <div class="col s12">
+                            <a id="addVideoLink" class="btn-floating waves-effect waves-light btn-small"><i class="material-icons right">add</i></a>
+                        </div>
+
+                        @if(!empty($project['videoLink']))
+
+                            @foreach(explode(',', $project['videoLink']) as $key => $videoLink)
+                                @if($videoLink != '')
+                                    <div id="videoInputField" class="input-field col s12">
+                                        <i class="material-icons prefix">insert_link</i>
+                                        <input type="text" class="validate" placeholder="ссылка на видео" name="videoLink[]" value="{{$videoLink}}">
+                                    </div>
+                                @endif
+                            @endforeach
+                        @endif
                     </div>
                     <div class="row">
                         <span class="col s12">Обложка:</span>
-                        <div class="file-field input-field col s12">
-                            <div class="btn">
-                                <span>File</span>
-                                <input type="file" name="cover">
+                        @if(!empty($project['cover']))
+                            <div class="projectCover col s12">
+                                <img class="responsive-img" src="{{ url($project['cover']) }}">
+                                <a class="btn-floating halfway-fab waves-effect waves-light red hoverable projectCoverRemove" href=""><i class="material-icons">delete</i></a>
                             </div>
-                            <div class="file-path-wrapper">
-                                <input class="file-path validate" type="text">
+                        @else
+                            <div class="file-field input-field col s12">
+                                <div class="btn">
+                                    <span>File</span>
+                                    <input type="file" name="cover">
+                                </div>
+                                <div class="file-path-wrapper">
+                                    <input class="file-path validate" type="text">
+                                </div>
                             </div>
-                        </div>
+                        @endif
                     </div>
                     <div class="row">
                         <span class="col s12">Фото:</span>
@@ -88,13 +108,13 @@
                                 @php
                                     $keys = array_keys(explode(',', $project['images']));
                                 @endphp
-                                <input id="fotoInput" type="file" name="images[]"  {{ !empty($errors->has('images')) ? 'required' : null }}
+                                <input id="fotoInput" type="file" name="images[]"  {{ !empty($project['images']) ? 'required' : null }}
                                     data-fileuploader-files=
                                     '[
                                         @foreach(explode(',', $project['images']) as $key => $image)
                                             {
-                                                "name":"{{ $image }}",
-                                                "size":1024,
+                                                "name":"name",
+                                                "size":777,
                                                 "type":"image\/jpeg",
                                                 "file":"{{ url($image) }}"
                                             } {{ end($keys) !== $key ? ',' : '' }}
@@ -103,7 +123,7 @@
                                     ]'
                                 >
                             @else
-                                <input id="fotoInput" type="file" name="images[]" multiple {{ !empty($errors->has('images')) ? 'required' : null }}>
+                                <input id="fotoInput" type="file" name="images[]" multiple>
                             @endif
                         </div>
                     </div>
@@ -113,7 +133,11 @@
                             <div class="switch">
                                 <label>
                                     Off
-                                    <input type="checkbox" name="isPopular" {{ $errors->has('isPopular') ? 'checked' : '' }}>
+                                    <input type="checkbox" name="isPopular"
+                                            @if (!empty($project) && $project['isPopular'])
+                                                checked
+                                            @endif
+                                    >
                                     <span class="lever"></span>
                                     On
                                 </label>
@@ -126,7 +150,11 @@
                             <div class="switch">
                                 <label>
                                     Off
-                                    <input type="checkbox" name="isActive" {{ $errors->has('isActive') ? 'checked' : '' }}>
+                                    <input type="checkbox" name="isActive"
+                                            @if (!empty($project) && $project['isActive'])
+                                                checked
+                                            @endif
+                                    >
                                     <span class="lever"></span>
                                     On
                                 </label>

@@ -103,8 +103,8 @@ class Project extends Model
         }
 
         $uploader = new FileUploaderService('images', ['uploadDir' => $imgPath . DIRECTORY_SEPARATOR, 'editor' => [
-            'maxWidth'  => 1024,
-            'maxHeight' => 1024,
+            'maxWidth'  => 1280,
+            'maxHeight' => 720,
             'quality'   => 75,
         ]]);
         $res = [];
