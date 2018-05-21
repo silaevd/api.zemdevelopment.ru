@@ -148,7 +148,7 @@ class Project extends Model
      *
      * @return bool
      */
-    public function disableProject(int $id)
+    public function disableProject(int $id): bool
     {
         $project = self::findOrFail($id);
         $project->isActive = false;
@@ -160,7 +160,19 @@ class Project extends Model
      *
      * @return bool
      */
-    public function enableProject(int $id)
+    public function coverRemove(int $id): bool
+    {
+        $project = self::findOrFail($id);
+        $project->cover = null;
+        return $project->save();
+    }
+
+    /**
+     * @param int $id
+     *
+     * @return bool
+     */
+    public function enableProject(int $id): bool
     {
         $project = self::findOrFail($id);
         $project->isActive = true;
