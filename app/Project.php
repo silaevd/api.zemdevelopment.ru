@@ -93,7 +93,7 @@ class Project extends Model
      */
     public function addImagesWithFileUploader(int $projectId, Request $request): ?array
     {
-        if (empty($request->request->get('images'))) {
+        if (empty($request->request->get('fileuploader-list-images'))) {
             return null;
         }
 
