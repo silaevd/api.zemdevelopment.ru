@@ -6,6 +6,7 @@ use App\Contact;
 use App\Project;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 
@@ -60,7 +61,7 @@ class ManagerController extends Controller
      * @param Request $request
      * @param Project $project
      *
-     * @return \Illuminate\Http\RedirectResponse|Redirector
+     * @return RedirectResponse|Redirector
      */
     public function process(Request $request, Project $project)
     {
@@ -72,7 +73,7 @@ class ManagerController extends Controller
      * @param Project $project
      * @param int     $id
      *
-     * @return \Illuminate\Http\RedirectResponse|Redirector
+     * @return RedirectResponse|Redirector
      */
     public function disable(Project $project, int $id)
     {
@@ -84,7 +85,19 @@ class ManagerController extends Controller
      * @param Project $project
      * @param int     $id
      *
-     * @return \Illuminate\Http\RedirectResponse|Redirector
+     * @return RedirectResponse|Redirector
+     */
+    public function coverRemove(Project $project, int $id)
+    {
+        $project->coverRemove($id);
+        return redirect('/manager');
+    }
+
+    /**
+     * @param Project $project
+     * @param int     $id
+     *
+     * @return RedirectResponse|Redirector
      */
     public function enable(Project $project, int $id)
     {
