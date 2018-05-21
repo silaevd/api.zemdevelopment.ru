@@ -65,9 +65,7 @@ class Project extends Model
         $newEntry->size      = $size;
         $newEntry->price     = $price;
         $newEntry->deadline  = $deadline;
-        $newEntry->cover     = null;
         $newEntry->videoLink = $videoLink ? \implode(',', $videoLink) : null;
-        $newEntry->images    = null;
         $newEntry->isPopular = $isPopular;
         $newEntry->isActive  = $isActive;
 
