@@ -70,7 +70,6 @@
     </div>
 
     <div id="contactsTab" class="col s12 tabContent">
-        {{var_dump($contacts)}}
         <div class="contactsForm">
             <div class="row">
                 <form method="post" action="{{ url('manager/contact/save') }}" enctype="multipart/form-data" class="">
