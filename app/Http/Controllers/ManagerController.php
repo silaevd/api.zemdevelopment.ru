@@ -7,6 +7,7 @@ use App\Project;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 
 /**
  * Class ManagerController
@@ -58,7 +59,8 @@ class ManagerController extends Controller
     /**
      * @param Request $request
      * @param Project $project
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     *
+     * @return \Illuminate\Http\RedirectResponse|Redirector
      */
     public function process(Request $request, Project $project)
     {
@@ -70,7 +72,7 @@ class ManagerController extends Controller
      * @param Project $project
      * @param int     $id
      *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return \Illuminate\Http\RedirectResponse|Redirector
      */
     public function disable(Project $project, int $id)
     {
@@ -82,7 +84,7 @@ class ManagerController extends Controller
      * @param Project $project
      * @param int     $id
      *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return \Illuminate\Http\RedirectResponse|Redirector
      */
     public function enable(Project $project, int $id)
     {
