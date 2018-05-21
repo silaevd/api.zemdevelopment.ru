@@ -27,7 +27,7 @@
                                                     <a class="btn-floating halfway-fab waves-effect waves-light red hoverable" href="{{ url('/manager/project/' . $project['id']) . '/delete' }}"><i class="material-icons">delete</i></a>
                                                 </div>
                                                 <div class="card-content">
-                                                    <span class="card-title">{{ $project['title'] }}</span>
+                                                    <span class="card-title truncate">{{ $project['title'] }}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -52,7 +52,7 @@
                                                     <a class="btn-floating halfway-fab waves-effect waves-light red hoverable" href="{{ url('/manager/project/' . $project['id']) . '/delete' }}"><i class="material-icons">delete</i></a>
                                                 </div>
                                                 <div class="card-content">
-                                                    <span class="card-title">{{ $project['title'] }}</span>
+                                                    <span class="card-title truncate">{{ $project['title'] }}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -70,7 +70,6 @@
     </div>
 
     <div id="contactsTab" class="col s12 tabContent">
-        {{var_dump($contacts)}}
         <div class="contactsForm">
             <div class="row">
                 <form method="post" action="{{ url('manager/contact/save') }}" enctype="multipart/form-data" class="">
