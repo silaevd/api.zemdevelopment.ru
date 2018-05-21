@@ -33,7 +33,7 @@ class Contact extends Model
      */
     public function getContacts(): ?array
     {
-        $contacts = self::findOrFail(self::CONTACT_ID);
+        $contacts = self::find(self::CONTACT_ID);
         if (empty($contacts)) {
             return null;
         }

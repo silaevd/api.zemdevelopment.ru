@@ -14,6 +14,9 @@ use Illuminate\Http\Request;
  */
 class ManagerController extends Controller
 {
+    /**
+     * ManagerController constructor.
+     */
     public function __construct()
     {
         $this->middleware('auth');
@@ -21,6 +24,7 @@ class ManagerController extends Controller
 
     /**
      * @param Project $project
+     * @param Contact $contact
      *
      * @return Factory|\Illuminate\View\View
      */
