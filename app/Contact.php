@@ -20,7 +20,10 @@ class Contact extends Model
      */
     public function store(Request $request): bool
     {
-        $contacts = self::findOrFail(self::CONTACT_ID);
+        $contacts = self::find(self::CONTACT_ID);
+        if (empty($contacts)) {
+            $contacts = new self();
+        }
         $contacts->address = $request->request->get('address');
         $contacts->email = $request->request->get('email');
         $contacts->phone = $request->request->get('phone');
@@ -33,7 +36,7 @@ class Contact extends Model
      */
     public function getContacts(): ?array
     {
-        $contacts = self::findOrFail(self::CONTACT_ID);
+        $contacts = self::find(self::CONTACT_ID);
         if (empty($contacts)) {
             return null;
         }

@@ -156,6 +156,18 @@ class Project extends Model
     }
 
     /**
+     * @param int $id
+     *
+     * @return bool
+     */
+    public function enableProject(int $id)
+    {
+        $project = self::findOrFail($id);
+        $project->isActive = true;
+        return $project->save();
+    }
+
+    /**
      * @param int     $projectId
      * @param Request $request
      *

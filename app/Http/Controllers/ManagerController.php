@@ -7,6 +7,7 @@ use App\Project;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 
 /**
  * Class ManagerController
@@ -14,6 +15,9 @@ use Illuminate\Http\Request;
  */
 class ManagerController extends Controller
 {
+    /**
+     * ManagerController constructor.
+     */
     public function __construct()
     {
         $this->middleware('auth');
@@ -21,6 +25,7 @@ class ManagerController extends Controller
 
     /**
      * @param Project $project
+     * @param Contact $contact
      *
      * @return Factory|\Illuminate\View\View
      */
@@ -54,7 +59,8 @@ class ManagerController extends Controller
     /**
      * @param Request $request
      * @param Project $project
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     *
+     * @return \Illuminate\Http\RedirectResponse|Redirector
      */
     public function process(Request $request, Project $project)
     {
@@ -66,11 +72,23 @@ class ManagerController extends Controller
      * @param Project $project
      * @param int     $id
      *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return \Illuminate\Http\RedirectResponse|Redirector
      */
     public function disable(Project $project, int $id)
     {
         $project->disableProject($id);
+        return redirect('/manager');
+    }
+
+    /**
+     * @param Project $project
+     * @param int     $id
+     *
+     * @return \Illuminate\Http\RedirectResponse|Redirector
+     */
+    public function enable(Project $project, int $id)
+    {
+        $project->enableProject($id);
         return redirect('/manager');
     }
 

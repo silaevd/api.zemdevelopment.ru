@@ -24,7 +24,7 @@
                                                 <div class="card-image">
                                                     <img src="{{ asset($project['cover']) }}">
                                                     <a href="{{ url('/manager/project/' . $project['id']) . '/edit' }}" class="btn-floating halfway-fab waves-effect waves-light orange hoverable firstBtn"><i class="material-icons">edit</i></a>
-                                                    <a class="btn-floating halfway-fab waves-effect waves-light red hoverable" href="{{ url('/manager/project/' . $project['id']) . '/delete' }}"><i class="material-icons">delete</i></a>
+                                                    <a class="btn-floating halfway-fab waves-effect waves-light red hoverable" href="{{ url('/manager/project/' . $project['id']) . '/disable' }}"><i class="material-icons">delete</i></a>
                                                 </div>
                                                 <div class="card-content">
                                                     <span class="card-title truncate">{{ $project['title'] }}</span>
