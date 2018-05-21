@@ -54,10 +54,10 @@ class Project extends Model
         $isActive = $request->request->getBoolean('isActive');
         $projectId = $request->request->getInt('id');
 
-        if ($projectId) {
-            $newEntry = self::findOrFail($projectId);
-        } else {
+        if (empty($projectId)) {
             $newEntry = new self();
+        } else {
+            $newEntry = self::findOrFail($projectId);
         }
         $newEntry->title     = $title;
         $newEntry->slug      = $slug;
@@ -93,7 +93,7 @@ class Project extends Model
      */
     public function addImagesWithFileUploader(int $projectId, Request $request): ?array
     {
-        if ($request->request->get('images')) {
+        if (empty($request->request->get('images'))) {
             return null;
         }
 
