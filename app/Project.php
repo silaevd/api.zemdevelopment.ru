@@ -54,10 +54,10 @@ class Project extends Model
         $isActive = $request->request->getBoolean('isActive');
         $projectId = $request->request->getInt('id');
 
-        if ($projectId) {
-            $newEntry = self::findOrFail($projectId);
-        } else {
+        if (empty($projectId)) {
             $newEntry = new self();
+        } else {
+            $newEntry = self::findOrFail($projectId);
         }
         $newEntry->title     = $title;
         $newEntry->slug      = $slug;
@@ -65,9 +65,7 @@ class Project extends Model
         $newEntry->size      = $size;
         $newEntry->price     = $price;
         $newEntry->deadline  = $deadline;
-        $newEntry->cover     = null;
         $newEntry->videoLink = $videoLink ? \implode(',', $videoLink) : null;
-        $newEntry->images    = null;
         $newEntry->isPopular = $isPopular;
         $newEntry->isActive  = $isActive;
 
@@ -93,7 +91,7 @@ class Project extends Model
      */
     public function addImagesWithFileUploader(int $projectId, Request $request): ?array
     {
-        if ($request->request->get('images')) {
+        if (empty($request->request->get('fileuploader-list-images'))) {
             return null;
         }
 
