@@ -75,7 +75,7 @@ class Project extends Model
         if ($cover) {
             $newEntry->cover = $cover;
         }
-        $images = $this->addImagesWithFileUploader($newEntry->id, $request);
+        $images = $this->addImagesWithFileUploader($newEntry, $request);
         if ($images) {
             $newEntry->images = \implode(',', $images);
         }
@@ -84,18 +84,18 @@ class Project extends Model
     }
 
     /**
-     * @param int     $projectId
+     * @param Project $project
      * @param Request $request
      *
      * @return array|null
      */
-    public function addImagesWithFileUploader(int $projectId, Request $request): ?array
+    public function addImagesWithFileUploader(Project $project, Request $request): ?array
     {
         if (empty($request->request->get('fileuploader-list-images'))) {
             return null;
         }
 
-        $imgPath = \public_path('project/' . $projectId . '/images');
+        $imgPath = \public_path('project/' . $project->id . '/images');
         if (!File::exists($imgPath)) {
             File::makeDirectory($imgPath, 0777, true);
         }
@@ -108,9 +108,15 @@ class Project extends Model
         $res = [];
         $uploader->upload();
         $files = $uploader->getFileList();
+
         foreach ($files as $key => $file) {
             $res[] = $file['file'];
         }
+
+        if (isset($project->images)) {
+            \array_push($res, $project->images);
+        }
+
         return $res;
     }
 
