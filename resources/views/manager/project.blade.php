@@ -119,13 +119,15 @@
                                                 "type":"image\/jpeg",
                                                 "file":"{{ url($image) }}"
                                             } {{ end($keys) !== $key ? ',' : '' }}
-                                    {{--{{ url('manager/project/' . $project['id'] . '/remove_image/' . $image) }}--}}
+{{--                                    {{ url('manager/project/' . $project['id'] . '/remove_image/' . $image) }}--}}
                                         @endforeach
                                     ]'
                                 >
                             @else
                                 <input id="fotoInput" type="file" name="images[]" multiple>
                             @endif
+
+
                         </div>
                     </div>
                     <div class="row">
