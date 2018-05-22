@@ -149,31 +149,31 @@ $('#fotoInput').fileuploader({
         item = item.image[0];
         item.classList.add('isNew');
     },
-    editor: {
-        // editor cropper
-        cropper: {
-            // cropper ratio
-            // example: null
-            // example: '1:1'
-            // example: '16:9'
-            // you can also write your own
-            ratio: null,
-            minWidth: null,
-            minHeight: null,
-            showGrid: true
-        },
-
-        // editor on save quality (0 - 100)
-        // only front-end
-        quality: null,
-        maxWidth: null,
-        maxHeight: null,
-
-        // Callback fired after saving the image in editor
-        onSave: function(blobOrDataUrl, item, listEl, parentEl, newInputEl, inputEl) {
-            // callback will go here
-        }
-    },
+    // editor: {
+    //     // editor cropper
+    //     cropper: {
+    //         // cropper ratio
+    //         // example: null
+    //         // example: '1:1'
+    //         // example: '16:9'
+    //         // you can also write your own
+    //         ratio: null,
+    //         minWidth: null,
+    //         minHeight: null,
+    //         showGrid: true
+    //     },
+    //
+    //     // editor on save quality (0 - 100)
+    //     // only front-end
+    //     quality: null,
+    //     maxWidth: null,
+    //     maxHeight: null,
+    //
+    //     // Callback fired after saving the image in editor
+    //     onSave: function(blobOrDataUrl, item, listEl, parentEl, newInputEl, inputEl) {
+    //         // callback will go here
+    //     }
+    // },
     onRemove: function(item) {
         const projectId = document.querySelector('input[name="id"]').value;
         const imageName = item.name;

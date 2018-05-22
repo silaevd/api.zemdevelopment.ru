@@ -65,7 +65,7 @@ class Project extends Model
         $newEntry->size      = $size;
         $newEntry->price     = $price;
         $newEntry->deadline  = $deadline;
-        $newEntry->videoLink = $videoLink ? \implode(',', $videoLink) : null;
+        $newEntry->videoLink = $this->getVideoLinks($videoLink);
         $newEntry->isPopular = $isPopular;
         $newEntry->isActive  = $isActive;
 
@@ -199,5 +199,24 @@ class Project extends Model
         $newImageName = \md5(\time() . mt_rand(1,10000000)) . '.' . \strtolower($file->getClientOriginalExtension());
         $file->move($path, $path . '/' .$newImageName);
         return 'project/'. $projectId . '/cover/' .$newImageName;
+    }
+
+    /**
+     * @param array|null $videoLinks
+     * @return string
+     */
+    public function getVideoLinks(?array $videoLinks): ?string
+    {
+        if (empty($videoLinks)) {
+            return null;
+        }
+        $res = [];
+        foreach ($videoLinks as $videoLink) {
+            if (empty($videoLink)) {
+                continue;
+            }
+            $res[] = $videoLink;
+        }
+        return \implode(',', $res);
     }
 }
