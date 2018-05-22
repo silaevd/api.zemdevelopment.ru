@@ -77,21 +77,14 @@ $('#fotoInput').fileuploader({
                             '<h5>${reader.duration2}</h5>' +
                             '</li>' : ''
                     ) +
-                    '<li id="forImageDefult" class="separator"></li>' +
-                    '<li class="imageCheckDefault">' +
-                        '<a id="setImageDefault" href="#">' +
-                            '<i></i>' +
-                            '<span>Обложка</span>' +
-                        '</a>' +
-                    '</li>'+
                     '<li class="separator"></li>' +
                     (data.format === 'image' && data.reader.src && data.editor ?
-                            '<li class="imageCrop">' +
-                            '<a data-action="crop">' +
-                            '<i></i>' +
-                            '<span>${captions.crop}</span>' +
-                            '</a>' +
-                            '</li>' +
+                            // '<li class="imageCrop">' +
+                            // '<a data-action="crop">' +
+                            // '<i></i>' +
+                            // '<span>${captions.crop}</span>' +
+                            // '</a>' +
+                            // '</li>' +
                             '<li class="imageRotate">' +
                             '<a data-action="rotate-cw">' +
                             '<i></i>' +
@@ -182,10 +175,12 @@ $('#fotoInput').fileuploader({
         }
     },
     onRemove: function(item) {
-        const workId = document.querySelector('.workId.hidden').getAttribute('data-workId');
-        const imageId = item.name;
-        const url = '/cabinet/work/' + workId + '/edit/removeImage/' + imageId;
-        if (workId && url) {
+        const projectId = document.querySelector('input[name="id"]').value;
+        const imageName = item.name;
+        console.log(projectId);
+        console.log(imageName);
+        const url = '/manager/project/' + projectId + '/remove_image/' + imageName;
+        if (projectId && url) {
             http(url).then(
                 response => {
                     //todo make action if it will needed
@@ -195,6 +190,7 @@ $('#fotoInput').fileuploader({
                 }
             );
         }
+
     },
     sorter: {
         selectorExclude: null,

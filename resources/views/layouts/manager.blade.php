@@ -34,14 +34,17 @@
                     <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                     <ul class="right hide-on-med-and-down">
                         <li>
-                            <a class="btn-floating btn waves-effect waves-light orange tooltipped" data-position="bottom" data-tooltip="Вернуться на сайт">
+                            <a href="http://zemdevelopment.ru" class="btn-floating btn waves-effect waves-light orange tooltipped" data-position="bottom" data-tooltip="Вернуться на сайт">
                                 <i class="material-icons">desktop_windows</i>
                             </a>
                         </li>
                         <li>
-                            <a class="btn-floating btn waves-effect waves-light orange tooltipped" data-position="bottom" data-tooltip="Выйти">
+                            <a class="btn-floating btn waves-effect waves-light orange tooltipped" data-position="bottom" data-tooltip="Выйти" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                                 <i class="material-icons">exit_to_app</i>
                             </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                {{ csrf_field() }}
+                            </form>
                         </li>
                     </ul>
                 </div>

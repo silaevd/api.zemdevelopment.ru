@@ -90,7 +90,7 @@ class ManagerController extends Controller
     public function coverRemove(Project $project, int $id)
     {
         $project->coverRemove($id);
-        return redirect('/manager');
+        return redirect('/manager/project/'. $id .'/edit');
     }
 
     /**

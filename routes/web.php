@@ -9,7 +9,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/', 'DefaultController@index');
+Route::get('/', 'ManagerController@index')->name('managerIndex');
 
 Route::get('/manager', 'ManagerController@index')->name('managerIndex');
 Route::get('/manager/project', 'ManagerController@project')->name('managerProject');

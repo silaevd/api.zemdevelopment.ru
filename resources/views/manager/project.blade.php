@@ -88,7 +88,7 @@
                             <div class="projectCover col s12">
                                 <img class="responsive-img" src="{{ url($project['cover']) }}">
                                 <a class="btn-floating halfway-fab waves-effect waves-light red hoverable projectCoverRemove" href="{{ route('managerProjectCoverRemove', ['id' => $project['id']]) }}"><i class="material-icons">delete</i></a>
-                                <input name="cover" value="{{ $project['cover'] }}">
+                                <input name="cover" value="{{ $project['cover'] }}" type="hidden">
                             </div>
                         @else
                             <div class="file-field input-field col s12">
@@ -109,13 +109,13 @@
                                 @php
                                     $keys = array_keys(explode(',', $project['images']));
                                 @endphp
-                                <input id="fotoInput" type="file" name="images[]"  {{ !empty($project['images']) ? 'required' : null }}
+                                <input id="fotoInput" type="file" name="images[]"  {{ empty($project['images']) ? 'required' : null }}
                                     data-fileuploader-files=
                                     '[
                                         @foreach(explode(',', $project['images']) as $key => $image)
                                             {
-                                                "name":"name",
-                                                "size":777,
+                                                "name":"{{$image}}",
+                                                "size":1,
                                                 "type":"image\/jpeg",
                                                 "file":"{{ url($image) }}"
                                             } {{ end($keys) !== $key ? ',' : '' }}
