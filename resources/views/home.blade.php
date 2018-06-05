@@ -24,6 +24,7 @@
                     <ul class="tabs tabs-transparent blue">
                         <li class="tab"><a class="active" href="#projectsTab">Проекты</a></li>
                         <li class="tab"><a href="#contactsTab">Контакты</a></li>
+                        <li class="tab"><a href="#sliderTab">Слайдер</a></li>
                     </ul>
                 </div>
             </nav>
@@ -85,5 +86,37 @@
                 </div>
             </div>
 
+            <div id="sliderTab" class="col s12 tabContent">
+                <div class="row">
+                    <div class="row">
+                        <span class="col s12">Фото:</span>
+                        <div class="col s12">
+                            {{--@if(!empty($homeSlider['images']))--}}
+                                {{--@php--}}
+                                    {{--$keys = array_keys(explode(',', $homeSlider['images']));--}}
+                                {{--@endphp--}}
+                                {{--<input id="fotoInput" type="file" name="images[]"  {{ empty($homeSlider['images']) ? 'required' : null }}--}}
+                                {{--data-fileuploader-files=--}}
+                                {{--'[--}}
+                                        {{--@foreach(explode(',', $homeSlider['images']) as $key => $image)--}}
+                                            {{--{--}}
+                                                {{--"name":"{{$image}}",--}}
+                                                {{--"size":1,--}}
+                                                {{--"type":"image\/jpeg",--}}
+                                                {{--"file":"{{ url($image) }}"--}}
+                                            {{--} {{ end($keys) !== $key ? ',' : '' }}--}}
+                                        {{--@endforeach--}}
+                                {{--]'--}}
+                                {{-->--}}
+                            {{--@else--}}
+                                <input id="fotoInput" type="file" name="images[]" multiple>
+                            {{--@endif--}}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
+    </div>
 @endsection
