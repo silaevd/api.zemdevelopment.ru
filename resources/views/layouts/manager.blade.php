@@ -10,9 +10,6 @@
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <!-- Scripts -->
-{{--        <script src="{{ asset('js/app.js') }}" defer></script>--}}
-
         <!--Import Google Icon Font-->
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
@@ -20,8 +17,10 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
         <link rel="stylesheet" href="{{ asset('js/libs/fileuploader/jquery.fileuploader-theme-thumbnails.css') }}">
         <link rel="stylesheet" href="{{ asset('js/libs/fileuploader/jquery.fileuploader.min.css') }}">
-
+        <link rel="stylesheet" href="{{ asset('js/libs/Trumbowyg-master/ui/trumbowyg.min.css') }}">
         <link href="{{ asset('css/manager.css') }}" rel="stylesheet">
+
+
     </head>
 
     <body>
@@ -62,7 +61,30 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
         <script src="{{ asset('js/libs/fileuploader/jquery.fileuploader.js') }}"></script>
         <script src="{{ asset('js/fileuploader/project.js') }}"></script>
+        <script src="{{ asset('js/libs/Trumbowyg-master/trumbowyg.min.js') }}"></script>
+        <script src="{{ asset('js/libs/Trumbowyg-master/langs/ru.min.js') }}"></script>
         <script src="{{ asset('js/main.js') }}"></script>
+
+        <script>
+            $('#description').trumbowyg({
+                lang: 'ru',
+                btns: [
+                    ['viewHTML'],
+                    ['undo', 'redo'], // Only supported in Blink browsers
+                    ['formatting'],
+                    ['strong', 'em', 'del'],
+                    ['superscript', 'subscript'],
+                    ['link'],
+                    ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
+                    ['unorderedList', 'orderedList'],
+                    ['horizontalRule'],
+                    ['removeformat'],
+                    ['fullscreen']
+                ],
+                autogrow: true,
+                imageWidthModalEdit: true
+            });
+        </script>
 
     </body>
 

@@ -57,6 +57,14 @@
                             <label for="deadline">Срок готовности</label>
                         </div>
                     </div>
+                    <div class="row">
+                        <span class="col s12">Описание:</span>
+                        <div class="col s12">
+                            <textarea id="description" rows="40" class="validate" name="description">
+                                {{ !empty($project) ? $project['description'] : '' }}
+                            </textarea>
+                        </div>
+                    </div>
                     <div id="videoRow" class="row">
                         <div class="hide">
                             <div id="videoInputField" class="input-field col s12">
