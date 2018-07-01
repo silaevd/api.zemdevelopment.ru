@@ -21,3 +21,5 @@ Route::get('/manager/project/{id}/remove_image/{image}', 'ManagerController@remo
 Route::get('/manager/project', 'ManagerController@project')->name('managerProject');
 Route::post('/manager/process', 'ManagerController@process')->name('managerProcess');
 Route::post('/manager/contact/save', 'ContactController@save')->name('contactSave');
+Route::post('/manager/slider/process', 'ManagerController@sliderUpload')->name('managerSliderUpload');
+Route::get('/manager/slider/{id}/delete', 'ManagerController@sliderRemove')->where('id', '[0-9]+')->name('managerSliderDelete');

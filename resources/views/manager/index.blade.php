@@ -109,31 +109,31 @@
     <div id="sliderTab" class="col s12 tabContent">
         <div class="row">
             <div class="homeSliderForm">
-                <form method="post" action="{{ url('manager/process') }}" enctype="multipart/form-data" class="">
+                <form method="post" action="{{ url('manager/slider/process') }}" enctype="multipart/form-data" class="">
                     <div class="row">
                         <span class="col s12">Изображения:</span>
                         <div class="col s12">
-                            {{--@if(!empty($homeSlider['images']))--}}
-                                {{--@php--}}
-                                {{--$keys = array_keys(explode(',', $homeSlider['images']));--}}
-                                {{--@endphp--}}
-                            {{----}}
-                                {{--<input id="fotoInput" type="file" name="images[]"  {{ empty($homeSlider['images']) ? 'required' : null }}--}}
-                                    {{--data-fileuploader-files=--}}
-                                    {{--'[--}}
-                                        {{--@foreach(explode(',', $homeSlider['images']) as $key => $image)--}}
-                                            {{--{--}}
-                                            {{--"name":"{{$image}}",--}}
-                                            {{--"size":1,--}}
-                                            {{--"type":"image\/jpeg",--}}
-                                            {{--"file":"{{ url($image) }}"--}}
-                                            {{--} {{ end($keys) !== $key ? ',' : '' }}--}}
-                                        {{--@endforeach--}}
-                                    {{--]'--}}
-                                {{-->--}}
-                                {{--@else--}}
+                            @if(!empty($homeSlider))
+                                @php
+                                $keys = array_keys($homeSlider);
+                                @endphp
+
+                                <input id="fotoInput" type="file" name="images[]"  {{ empty($homeSlider) ? 'required' : null }}
+                                    data-fileuploader-files=
+                                    '[
+                                        @foreach($homeSlider as $key => $image)
+                                            {
+                                            "name":"{{$image['file_name']}}",
+                                            "size":1,
+                                            "type":"image\/jpeg",
+                                            "file":"{{ url($image['file_name']) }}"
+                                            } {{ end($keys) !== $key ? ',' : '' }}
+                                        @endforeach
+                                    ]'
+                                >
+                                @else
                                 <input id="fotoInput" type="file" name="images[]" multiple>
-                            {{--@endif--}}
+                            @endif
 
                         </div>
                     </div>
