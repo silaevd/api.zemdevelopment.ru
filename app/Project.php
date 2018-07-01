@@ -49,6 +49,7 @@ class Project extends Model
         $size = $request->request->get('size');
         $price = $request->request->get('price');
         $deadline = $request->request->get('deadline');
+        $description = $request->request->get('description');
         $videoLink = $request->request->get('videoLink');
         $isPopular = $request->request->getBoolean('isPopular');
         $isActive = $request->request->getBoolean('isActive');
@@ -65,6 +66,7 @@ class Project extends Model
         $newEntry->size      = $size;
         $newEntry->price     = $price;
         $newEntry->deadline  = $deadline;
+        $newEntry->description  = $description;
         $newEntry->videoLink = $this->getVideoLinks($videoLink);
         $newEntry->isPopular = $isPopular;
         $newEntry->isActive  = $isActive;

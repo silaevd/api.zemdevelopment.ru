@@ -4,6 +4,7 @@
     <ul class="tabs tabs-transparent blue">
         <li class="tab"><a class="active" href="#projectsTab">Проекты</a></li>
         <li class="tab"><a href="#contactsTab">Контакты</a></li>
+        <li class="tab"><a href="#sliderTab">Слайдер</a></li>
     </ul>
 
     <div id="projectsTab" class="col s12 tabContent">
@@ -92,6 +93,48 @@
                             <i class="material-icons prefix">phone</i>
                             <input id="phone" name="phone" type="text" class="validate" value="{{!empty($contacts) ? $contacts['phone'] : ''}}">
                             <label for="phone">Телефон</label>
+                        </div>
+                    </div>
+                    <div class="row center">
+                        @csrf
+                        <button class="btn waves-effect waves-light blue" type="submit" name="action">Отправить
+                            <i class="material-icons right">send</i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="sliderTab" class="col s12 tabContent">
+        <div class="row">
+            <div class="homeSliderForm">
+                <form method="post" action="{{ url('manager/slider/process') }}" enctype="multipart/form-data" class="">
+                    <div class="row">
+                        <span class="col s12">Изображения:</span>
+                        <div class="col s12">
+                            @if(!empty($homeSlider))
+                                @php
+                                $keys = array_keys($homeSlider);
+                                @endphp
+
+                                <input id="fotoInput" type="file" name="images[]"  {{ empty($homeSlider) ? 'required' : null }}
+                                    data-fileuploader-files=
+                                    '[
+                                        @foreach($homeSlider as $key => $image)
+                                            {
+                                            "name":"{{$image['file_name']}}",
+                                            "size":1,
+                                            "type":"image\/jpeg",
+                                            "file":"{{ url($image['file_name']) }}"
+                                            } {{ end($keys) !== $key ? ',' : '' }}
+                                        @endforeach
+                                    ]'
+                                >
+                                @else
+                                <input id="fotoInput" type="file" name="images[]" multiple>
+                            @endif
+
                         </div>
                     </div>
                     <div class="row center">

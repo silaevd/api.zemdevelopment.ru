@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Contact;
+use App\HomeSlider;
 use App\Project;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
@@ -27,15 +28,17 @@ class ManagerController extends Controller
     /**
      * @param Project $project
      * @param Contact $contact
+     * @param HomeSlider $slider
      *
      * @return Factory|\Illuminate\View\View
      */
-    public function index(Project $project, Contact $contact)
+    public function index(Project $project, Contact $contact, HomeSlider $slider)
     {
         $projectList = $project->getList();
         $contacts = $contact->getContacts();
+        $homeSlider = $slider->getList();
 
-        return view('manager.index', ['projectList' => $projectList, 'contacts' => $contacts]);
+        return view('manager.index', ['projectList' => $projectList, 'contacts' => $contacts, 'homeSlider' => $homeSlider]);
     }
 
     /**
@@ -116,5 +119,22 @@ class ManagerController extends Controller
     public function removeImage(Project $project, int $id, string $image)
     {
         return new JsonResponse(['isDeleted' => $project->removeImage($id, $image)]);
+    }
+
+    /**
+     * @param Request $request
+     * @param HomeSlider $homeSlider
+     * @return RedirectResponse
+     */
+    public function sliderUpload(Request $request, HomeSlider $homeSlider)
+    {
+        $homeSlider->upload($request);
+        return new RedirectResponse('/manager');
+    }
+
+    public function sliderRemove(HomeSlider $homeSlider, int $id)
+    {
+        $homeSlider->removeById($id);
+        return new RedirectResponse('/manager');
     }
 }
