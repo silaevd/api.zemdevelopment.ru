@@ -20,3 +20,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/projects', 'ApiController@getProjects');
 Route::get('/contacts', 'ApiController@getContacts');
+Route::get('/sliders', 'ApiController@getSliders');
