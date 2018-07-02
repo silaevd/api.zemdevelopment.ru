@@ -118,13 +118,13 @@
                                 $keys = array_keys($homeSlider);
                                 @endphp
 
-                                <input id="fotoInput" type="file" name="images[]"  {{ empty($homeSlider) ? 'required' : null }}
+                                <input id="sliderInput" type="file" name="images[]"  {{ empty($homeSlider) ? 'required' : null }}
                                     data-fileuploader-files=
                                     '[
                                         @foreach($homeSlider as $key => $image)
                                             {
                                             "name":"{{$image['file_name']}}",
-                                            "size":1,
+                                            "size":"{{$image['id']}}",
                                             "type":"image\/jpeg",
                                             "file":"{{ url($image['file_name']) }}"
                                             } {{ end($keys) !== $key ? ',' : '' }}

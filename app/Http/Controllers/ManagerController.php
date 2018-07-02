@@ -129,12 +129,12 @@ class ManagerController extends Controller
     public function sliderUpload(Request $request, HomeSlider $homeSlider)
     {
         $homeSlider->upload($request);
-        return new RedirectResponse('/manager');
+        return redirect('/manager');
     }
 
     public function sliderRemove(HomeSlider $homeSlider, int $id)
     {
         $homeSlider->removeById($id);
-        return new RedirectResponse('/manager');
+        return redirect('/manager');
     }
 }

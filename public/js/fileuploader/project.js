@@ -177,8 +177,6 @@ $('#fotoInput').fileuploader({
     onRemove: function(item) {
         const projectId = document.querySelector('input[name="id"]').value;
         const imageName = item.name;
-        console.log(projectId);
-        console.log(imageName);
         const url = '/manager/project/' + projectId + '/remove_image/' + imageName;
         if (projectId && url) {
             http(url).then(

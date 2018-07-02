@@ -61,6 +61,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
         <script src="{{ asset('js/libs/fileuploader/jquery.fileuploader.js') }}"></script>
         <script src="{{ asset('js/fileuploader/project.js') }}"></script>
+        <script src="{{ asset('js/fileuploader/homeSlider.js') }}"></script>
         <script src="{{ asset('js/libs/Trumbowyg-master/trumbowyg.min.js') }}"></script>
         <script src="{{ asset('js/libs/Trumbowyg-master/langs/ru.min.js') }}"></script>
         <script src="{{ asset('js/main.js') }}"></script>
