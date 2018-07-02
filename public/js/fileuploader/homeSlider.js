@@ -183,7 +183,7 @@ $('#sliderInput').fileuploader({
                     //todo make action if it will needed
                 },
                 onError => {
-                    new Error('was an error (on delete image action): ' + onError.toString());
+                    new Error('was an error (on  delete image action): ' + onError.toString());
                 }
             );
         }
