@@ -176,7 +176,7 @@ $('#sliderInput').fileuploader({
     // },
     onRemove: function(item) {
         const imageId = item.size;
-        const url = '/manager/slider/' + imageId + '/delete';
+        const url = './manager/slider/' + imageId + '/delete';
         if (imageId && url) {
             http(url).then(
                 response => {
